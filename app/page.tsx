@@ -311,87 +311,100 @@ export default function DashboardPage() {
   return (
     <div className={`min-h-screen ${dark ? "bg-slate-900 text-slate-100" : "bg-gradient-to-br from-blue-600 via-teal-500 to-indigo-500 text-slate-900"}`}>
       {/* Top header */}
-     <header className="w-full sticky top-0 z-40 backdrop-blur-xl bg-black/30 border-b border-white/10 shadow-lg">
-  <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+    <header className="w-full bg-[#1c1f22] border-b border-white/10 shadow-xl">
+  <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
 
-    {/* Left: Logo + Title */}
+    {/* LEFT: LOGO */}
     <div className="flex items-center gap-3">
-      <img
-        src="/logo.png"
-        alt="logo"
-        className="w-11 h-11 rounded-xl object-cover shadow-lg"
-      />
-      <div className="text-xl font-semibold bg-gradient-to-r from-cyan-300 to-blue-400 text-transparent bg-clip-text">
-        AI Powered Charging System
-      </div>
+      <img src="/logo.png" className="w-10 h-10" alt="logo" />
+      <h1 className="text-xl font-semibold text-white tracking-wide">
+        EV Station Finder
+      </h1>
     </div>
 
-    {/* Center Search Bar */}
+    {/* CENTER: SEARCH BAR */}
     <div className="flex-1 flex items-center justify-center">
       <div className="w-full max-w-2xl flex items-center gap-2">
+
         <Input
           placeholder="Search address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="bg-white/10 text-white placeholder-white/60 border-white/20"
+          className="bg-[#2a2f33] border border-teal-500/30 text-white
+                     placeholder-white/50 rounded-lg"
         />
+
         <Input
-          placeholder="distance km"
-          className="w-28 bg-white/10 text-white placeholder-white/60 border-white/20"
+          placeholder="Distance (km)"
           value={distance}
           onChange={(e) => setDistance(e.target.value)}
+          className="w-32 bg-[#2a2f33] border border-teal-500/30 text-white
+                     placeholder-white/50 rounded-lg"
         />
+
         <Button
           onClick={searchByAddress}
-          className="bg-gradient-to-r from-white -500 to-teal-400 text-black font-semibold shadow-lg hover:opacity-90"
+          className="bg-teal-500 hover:bg-teal-600 text-black font-semibold px-5 py-2 rounded-lg shadow"
         >
           Search
         </Button>
+
         <Button
           onClick={getCurrentLocation}
           variant="outline"
-          className="bg-gradient-to-r from-blue-500 to-teal-400 text-black font-semibold shadow-lg hover:opacity-90"
+          className="border border-white/30 rounded-lg px-5 py-2"
         >
-          Use current
+          <b>Use Current</b>
+
         </Button>
+
       </div>
     </div>
 
-    {/* Right: User Info + Theme + Logout */}
+    {/* RIGHT: USER INFO + LOGOUT */}
     <div className="flex items-center gap-4">
 
-      {/* Theme Switch */}
-      <button
-        onClick={() => setDark((d) => !d)}
-        className="px-3 py-1 rounded-md bg-white/10 text-white hover:bg-white/20 transition shadow-lg"
-      >
-        {dark ? "🌙" : "☀️"}
-      </button>
-
-      {/* User Profile */}
+      {/* USER LOADING */}
       {userLoading ? (
-        <div className="w-9 h-9 rounded-full bg-white/20 animate-pulse" />
+        <div className="w-10 h-10 rounded-full bg-white/10 animate-pulse" />
       ) : user ? (
+
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center text-black font-bold shadow">
-            {user.name.slice(0, 1).toUpperCase()}
+          {/* User Avatar */}
+          <div className="w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center
+                          text-black font-bold shadow-lg ring-2 ring-teal-400">
+            {user.name?.slice(0, 1).toUpperCase()}
           </div>
 
-          <div className="text-md font-medium text-white/90">{user.name}</div>
+          {/* User Name */}
+          <div className="text-white text-lg font-medium">
+            {user.name}
+          </div>
 
-
+          {/* LOGOUT BUTTON (RED) */}
+          <button
+            onClick={logout}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg
+                       shadow-lg font-semibold"
+          >
+            Logout
+          </button>
 
         </div>
+
       ) : (
-        <a href="/login" className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-lg shadow-lg"><button>Logout</button></a>
+        <div className="text-white">Not Logged In</div>
       )}
+
     </div>
   </div>
 </header>
 
 
 
+
       <main className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-5 gap-6">
+        
         {/* Map left */}
         <section className="md:col-span-3 space-y-4">
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl overflow-hidden h-[640px] shadow-2xl bg-white/10 border border-white/20">
