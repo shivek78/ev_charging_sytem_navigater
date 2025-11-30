@@ -1,6 +1,3 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
@@ -8,12 +5,12 @@ export function middleware(req: NextRequest) {
     req.nextUrl.pathname === "/login" ||
     req.nextUrl.pathname === "/signup";
 
-  // Logged-in users should NOT see login or signup
+  // Logged-in users → go to dashboard
   if (token && isAuthPage) {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  // Non-logged-in users cannot access dashboard
+  // Not logged-in → block dashboard
   if (!token && req.nextUrl.pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
@@ -24,3 +21,4 @@ export function middleware(req: NextRequest) {
 export const config = {
   matcher: ["/login", "/signup", "/dashboard/:path*"],
 };
+
