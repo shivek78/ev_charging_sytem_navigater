@@ -1,9 +1,9 @@
 {
-  "name": "EvStationLocator",
+  "name": "Ai EV SYSTEM ",
   "description": "A Next.js application for locating electric vehicle charging stations.",
-  "author": "Royston",
+  "author": "Shivek yadav",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "build": "next build",
